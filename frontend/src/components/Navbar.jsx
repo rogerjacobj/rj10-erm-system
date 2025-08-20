@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import './Navbar.css';
 import bell from '../assets/Navbar/Bell_pin_fill.png';
 import user from '../assets/Navbar/User_fill.png';
 
