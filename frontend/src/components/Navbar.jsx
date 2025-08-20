@@ -17,7 +17,7 @@ const Navbar = () => {
         onMouseLeave={(e) => e.target.style.backgroundColor = 'transparent'}
       >
        <span><img src={user} alt="" className='w-7'/></span> 
-       <Link to="" className='font-black text-lg' style={{ color: 'var(--color-primary)' }}>Login</Link>
+  <Link to="" className='font-black text-lg login-link'>Login</Link>
       </div>
       <nav className="">
         <ul className="flex justify-center gap-20" style={{ color: 'var(--color-primary)' }}>

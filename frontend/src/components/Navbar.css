@@ -1,0 +1,7 @@
+.login-link {
+  color: var(--color-primary);
+  transition: color 0.2s;
+}
+.login-link:hover {
+  color: #fff;
+}
