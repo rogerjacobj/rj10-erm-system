@@ -1,0 +1,40 @@
+@import "tailwindcss";
+
+@theme{
+  --font-mono: "Roboto Mono", "sans-serif";
+  --font-rubik: "Rubik", "sans-serif";
+}
+
+:root {
+  --color-bg: #ffffff;
+  --color-text: #000000;
+  --color-primary: #3b82f6; /* blue-500 */
+  --color-highlight: #bfdbfe; /* blue-100 */
+  --font-rubik: 'Rubik', sans-serif;
+  --font-mono: 'Roboto Mono', monospace;
+}
+
+.dark {
+  --color-bg: #0f172a; /* slate-900 */
+  --color-text: #ffffff;
+  --color-primary: #60a5fa; /* blue-400 */
+  --color-highlight: #1e293b; /* slate-800 */
+}
+
+/* Apply theme colors to the entire page */
+html, body {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  transition: background-color 0.15s ease, color 0.15s ease;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+}
+
+/* Ensure the root element also gets the theme */
+#root {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  min-height: 100vh;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
