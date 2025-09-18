@@ -6,9 +6,9 @@ import user from '../assets/Navbar/User_fill.png';
 const Navbar = () => {
 
   return (
-    <header className='flex justify-around pt-6 mb-8 font-mono' style={{ color: 'var(--color-text)' }}>
+    <header className='flex justify-around pt-6 mb-8 font-mono items-center' style={{ color: 'var(--color-text)' }}>
       <div 
-        className="border-3 rounded-full px-3 py-2 flex gap-2 cursor-pointer transition delay-200 ease"
+        className="group border-3 rounded-full px-3 py-2 flex gap-2 cursor-pointer transition delay-200 ease"
         style={{ 
           borderColor: 'var(--color-primary)',
           borderWidth: '3px',
@@ -21,7 +21,7 @@ const Navbar = () => {
   <Link to="" className='font-black text-lg login-link'>Login</Link>
       </div>
       <nav className="">
-        <ul className="flex justify-center gap-20" style={{ color: 'var(--color-primary)' }}>
+        <ul className="flex justify-center gap-20 md:gap-20" style={{ color: 'var(--color-primary)' }}>
           <li 
             className="items1 cursor-pointer transition-transform duration-300 hover:scale-110 rounded-3xl px-3 py-2"
             onMouseEnter={(e) => e.target.style.backgroundColor = 'var(--color-highlight)'}

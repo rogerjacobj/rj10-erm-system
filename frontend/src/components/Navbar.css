@@ -2,6 +2,25 @@
   color: var(--color-primary);
   transition: color 0.2s;
 }
+/* turn white when the link itself is hovered */
 .login-link:hover {
   color: #fff;
+}
+/* also turn white when the parent group is hovered (useful when hovering the rounded container) */
+.group:hover .login-link {
+  color: #fff;
+}
+
+/* small responsive helper: stack header items on small screens */
+@media (max-width: 640px) {
+  header {
+    flex-direction: column;
+    gap: 12px;
+    align-items: stretch;
+  }
+  header nav ul {
+    flex-direction: column;
+    gap: 8px;
+    align-items: center;
+  }
 }
