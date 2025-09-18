@@ -38,3 +38,24 @@ html, body {
   min-height: 100vh;
   transition: background-color 0.15s ease, color 0.15s ease;
 }
+.cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.card {
+  flex: 1 1 calc(100% - 1rem); /* full width on mobile */
+}
+
+@media (min-width: 768px) {
+  .card {
+    flex: 1 1 calc(50% - 1rem); /* 2 per row on tablet */
+}
+
+@media (min-width: 1024px) {
+  .card {
+    flex: 1 1 calc(33.3% - 1rem); /* 3 per row on desktop */
+  }
+}
+}
