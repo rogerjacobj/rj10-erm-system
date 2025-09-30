@@ -1,9 +1,11 @@
 import { Link } from 'react-router-dom';
+import { useState } from 'react';
 import './Navbar.css';
 import bell from '../assets/Navbar/Bell_pin_fill.png';
 import user from '../assets/Navbar/User_fill.png';
 
 const Navbar = () => {
+  const [open, setOpen] = useState(false);
 
   return (
     <header className='flex justify-around pt-6 mb-8 font-mono items-center' style={{ color: 'var(--color-text)' }}>
@@ -20,8 +22,19 @@ const Navbar = () => {
        <span><img src={user} alt="" className='w-7'/></span> 
   <Link to="" className='font-black text-lg login-link'>Login</Link>
       </div>
+      <button
+        className="md:hidden p-2 ml-2"
+        aria-label="Toggle navigation"
+        onClick={() => setOpen(prev => !prev)}
+      >
+        <span className="block w-6 h-0.5 bg-current mb-1"></span>
+        <span className="block w-6 h-0.5 bg-current mb-1"></span>
+        <span className="block w-6 h-0.5 bg-current"></span>
+      </button>
+
       <nav className="">
-        <ul className="flex justify-center gap-20 md:gap-20" style={{ color: 'var(--color-primary)' }}>
+        <div className={`${open ? 'block' : 'hidden'} md:block`}>
+          <ul className="flex flex-col md:flex-row justify-center gap-4 md:gap-20 items-center" style={{ color: 'var(--color-primary)' }}>
           <li 
             className="items1 cursor-pointer transition-transform duration-300 hover:scale-110 rounded-3xl px-3 py-2"
             onMouseEnter={(e) => e.target.style.backgroundColor = 'var(--color-highlight)'}
@@ -50,7 +63,8 @@ const Navbar = () => {
           >
             Blog
           </li>
-        </ul>
+          </ul>
+        </div>
       </nav>
       <div className="flex items-center gap-4">
         <div className="notification">
