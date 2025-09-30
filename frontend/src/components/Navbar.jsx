@@ -13,7 +13,7 @@ const Navbar = () => {
   ];
 
   return (
-    <header className="flex flex-col md:flex-row items-center justify-between p-4 md:p-6 font-mono" style={{ color: 'var(--color-text)' }}>
+    <header className="flex flex-col md:flex-row items-center p-4 md:p-6 font-mono" style={{ color: 'var(--color-text)' }}>
       <div className="mb-3 md:mb-0">
         <Link to="" className="login-pill inline-block text-center">Login</Link>
       </div>
@@ -23,7 +23,6 @@ const Navbar = () => {
         aria-expanded={open}
         onClick={() => setOpen(prev => !prev)}
       >
-        {/* transform spans to make an X when open */}
         <span
           className="block w-6 h-0.5 bg-current mb-1 transition-transform duration-300"
           style={{ transform: open ? 'translateY(6px) rotate(45deg)' : 'none' }}
