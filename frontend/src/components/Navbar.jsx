@@ -5,33 +5,58 @@ import bell from '../assets/Navbar/Bell_pin_fill.png';
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
+  const navItems = [
+    { to: '/events', label: 'Events' },
+    { to: '/mission', label: 'Our Mission' },
+    { to: '/tickets', label: 'Tickets' },
+    { to: '/blog', label: 'Blog' },
+  ];
 
   return (
     <header className="flex flex-col md:flex-row items-center justify-between p-4 md:p-6 font-mono" style={{ color: 'var(--color-text)' }}>
-      {/* Login pill centered */}
       <div className="mb-3 md:mb-0">
         <Link to="" className="login-pill inline-block text-center">Login</Link>
       </div>
-
-      {/* Hamburger (mobile) */}
       <button
         className="md:hidden p-2"
         aria-label="Toggle navigation"
         aria-expanded={open}
         onClick={() => setOpen(prev => !prev)}
       >
-        <span className="block w-6 h-0.5 bg-current mb-1"></span>
-        <span className="block w-6 h-0.5 bg-current mb-1"></span>
-        <span className="block w-6 h-0.5 bg-current"></span>
+        {/* transform spans to make an X when open */}
+        <span
+          className="block w-6 h-0.5 bg-current mb-1 transition-transform duration-300"
+          style={{ transform: open ? 'translateY(6px) rotate(45deg)' : 'none' }}
+        />
+        <span
+          className="block w-6 h-0.5 bg-current mb-1 transition-opacity duration-200"
+          style={{ opacity: open ? 0 : 1 }}
+        />
+        <span
+          className="block w-6 h-0.5 bg-current transition-transform duration-300"
+          style={{ transform: open ? 'translateY(-6px) rotate(-45deg)' : 'none' }}
+        />
       </button>
 
       {/* Nav */}
-      <nav className={`${open ? 'block' : 'hidden'} md:block`}> 
+      <nav
+        className={`overflow-hidden transition-all duration-300 md:overflow-visible md:transition-none ${
+          open ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
+        } md:max-h-full md:opacity-100`}
+      >
         <ul className="flex flex-col md:flex-row md:items-center gap-4 md:gap-8 text-[var(--color-primary)]">
-          <li className="cursor-pointer px-3 py-2 rounded-3xl">Events</li>
-          <li className="cursor-pointer px-3 py-2 rounded-3xl">Our Mission</li>
-          <li className="cursor-pointer px-3 py-2 rounded-3xl">Tickets</li>
-          <li className="cursor-pointer px-3 py-2 rounded-3xl">Blog</li>
+          {navItems.map((item, idx) => (
+            <li key={item.to} className="list-none">
+              <Link
+                to={item.to}
+                className="nav-link block px-3 py-2 rounded-3xl transition transform duration-300 hover:scale-105 hover:bg-[var(--color-highlight)] hover:text-[var(--color-text)]"
+                style={{ transitionDelay: `${idx * 60}ms` }}
+                onClick={() => setOpen(false)}
+              >
+                {item.label}
+              </Link>
+            </li>
+          ))}
         </ul>
       </nav>
 

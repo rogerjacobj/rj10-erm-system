@@ -38,3 +38,17 @@
   background-color: var(--color-primary);
   color: #fff;
 }
+
+.nav-link {
+  opacity: 1;
+  transform: translateY(0);
+}
+.nav-link.stagger {
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 300ms ease, transform 300ms ease;
+}
+.nav-link.stagger.show {
+  opacity: 1;
+  transform: translateY(0);
+}
