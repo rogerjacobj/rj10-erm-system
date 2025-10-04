@@ -15,7 +15,7 @@ const Navbar = () => {
   return (
     <header className="flex flex-col md:flex-row items-center p-4 md:p-6 font-mono" style={{ color: 'var(--color-text)' }}>
       <div className="mb-3 md:mb-0">
-        <Link to="" className="login-pill inline-block text-center">Login</Link>
+        <Link to="/login" className="login-pill inline-block text-center">Login</Link>
       </div>
       <button
         className="md:hidden p-2"
