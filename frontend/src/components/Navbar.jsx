@@ -13,12 +13,15 @@ const Navbar = () => {
   ];
 
   return (
-    <header className="flex flex-col md:flex-row items-center p-4 md:p-6 font-mono" style={{ color: 'var(--color-text)' }}>
-      <div className="mb-3 md:mb-0">
+    <header className="flex items-center mr-2 p-4 md:p-6 font-mono" style={{ color: 'var(--color-text)' }}>
+   
+      <div className="mr-6 hidden md:block">
         <Link to="/login" className="login-pill inline-block text-center">Login</Link>
       </div>
+
+      
       <button
-        className="md:hidden p-2"
+        className="md:hidden p-2 mr-2"
         aria-label="Toggle navigation"
         aria-expanded={open}
         onClick={() => setOpen(prev => !prev)}
@@ -37,13 +40,9 @@ const Navbar = () => {
         />
       </button>
 
-      {/* Nav */}
-      <nav
-        className={`overflow-hidden transition-all duration-300 md:overflow-visible md:transition-none ${
-          open ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
-        } md:max-h-full md:opacity-100`}
-      >
-        <ul className="flex flex-col md:flex-row md:items-center gap-4 md:gap-8 text-[var(--color-primary)]">
+      {/* Centered Nav: use flex-1 and justify-center on md+ screens */}
+      <nav className={`flex-1 ${open ? 'block' : 'hidden'} md:block`}>
+        <ul className="flex flex-col md:flex-row md:justify-center md:items-center gap-4 md:gap-8 text-[var(--color-primary)]">
           {navItems.map((item, idx) => (
             <li key={item.to} className="list-none">
               <Link
@@ -60,7 +59,7 @@ const Navbar = () => {
       </nav>
 
       {/* Right: bell */}
-      <div className="mt-3 md:mt-0">
+      <div className="ml-4">
         <img src={bell} alt="notifications" className="w-8" />
       </div>
     </header>
