@@ -8,7 +8,7 @@ const Navbar = () => {
   const navItems = [
     { to: '/events', label: 'Events' },
     { to: '/mission', label: 'Our Mission' },
-    { to: '/tickets', label: 'Tickets' },
+    { to: '/Dashboard', label: 'Dashboard' },
     { to: '/blog', label: 'Blog' },
   ];
 
@@ -40,10 +40,8 @@ const Navbar = () => {
         />
       </button>
 
-      {/* Centered Nav: use flex-1 and justify-center on md+ screens */}
       <nav className={`flex-1 ${open ? 'block' : 'hidden'} md:block`}>
         <ul className="flex flex-col md:flex-row md:justify-center md:items-center gap-4 md:gap-8 text-[var(--color-primary)]">
-          {/* Mobile-only login link */}
           <li className="list-none md:hidden">
             <Link
               to="/login"
@@ -69,7 +67,6 @@ const Navbar = () => {
         </ul>
       </nav>
 
-      {/* Right: bell */}
       <div className="ml-4">
         <img src={bell} alt="notifications" className="w-8" />
       </div>
