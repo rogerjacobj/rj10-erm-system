@@ -43,6 +43,17 @@ const Navbar = () => {
       {/* Centered Nav: use flex-1 and justify-center on md+ screens */}
       <nav className={`flex-1 ${open ? 'block' : 'hidden'} md:block`}>
         <ul className="flex flex-col md:flex-row md:justify-center md:items-center gap-4 md:gap-8 text-[var(--color-primary)]">
+          {/* Mobile-only login link */}
+          <li className="list-none md:hidden">
+            <Link
+              to="/login"
+              className="login-pill inline-block text-center w-full"
+              onClick={() => setOpen(false)}
+            >
+              Login
+            </Link>
+          </li>
+
           {navItems.map((item, idx) => (
             <li key={item.to} className="list-none">
               <Link
