@@ -65,6 +65,10 @@ const Login = () => {
 
           <p className="login-sub">Access for Employees and HR</p>
 
+          <p style={{ fontSize: 12, color: '#666' }}>
+            Test credentials: password <strong>password123</strong>. Use any email. Toggle role to test HR vs Employee.
+          </p>
+
           <div className="role-toggle" role="tablist" aria-label="Select role">
             <button
               type="button"
@@ -91,7 +95,7 @@ const Login = () => {
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                placeholder="you@company.com"
+                placeholder={role === 'hr' ? 'hr@company.com' : 'you@company.com'}
                 aria-label="email"
                 required
               />
