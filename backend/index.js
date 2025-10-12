@@ -22,8 +22,8 @@ app.post('/api/login', (req, res) => {
     }
 
     // NOTE: This is a mock. Replace with real auth logic.
-    if (password !== 'password123') {
-        return res.status(401).json({ message: 'Invalid credentials. For local tests use password: password123' })
+    if (password !== 'roger123') {
+        return res.status(401).json({ message: 'Invalid credentials. For local tests use password: roger123' })
     }
 
     // Issue a simple token that includes role (not secure, just for local dev)

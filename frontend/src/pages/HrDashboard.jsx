@@ -32,11 +32,11 @@ const HrDashboard = () => {
       })
       if (!res.ok) throw new Error(`Status ${res.status}`)
       const json = await res.json()
-      // update local state
+      // update local state and mark updated for highlight
       setTicketsByUser((prev) => {
         const next = { ...prev }
         for (const u in next) {
-          next[u] = next[u].map(t => t.id === ticketId ? json.ticket : t)
+          next[u] = next[u].map(t => t.id === ticketId ? { ...json.ticket, _transient: 'updated' } : t)
         }
         return next
       })
@@ -69,15 +69,18 @@ const HrDashboard = () => {
                   <h4>{user}</h4>
                   <div className="ticket-list">
                     {list.map(t => (
-                      <div key={t.id} className="ticket">
-                        <div className="title">{t.title} <span className="small">({t.category})</span></div>
-                        <div className="meta">{t.status} — {new Date(t.createdAt).toLocaleString()}</div>
-                        <div className="desc">{t.description}</div>
-                        <div className="controls">
-                          <button onClick={()=>updateStatus(t.id,'in-progress')}>In Progress</button>
-                          <button className="secondary" onClick={()=>updateStatus(t.id,'resolved')}>Resolve</button>
-                        </div>
-                      </div>
+                          <div key={t.id} className={`ticket ${t._transient === 'updated' ? 'updated' : ''}`}>
+                            <div style={{display:'flex',justifyContent:'space-between',alignItems:'center'}}>
+                              <div className="title">{t.title} <span className="small">({t.category})</span></div>
+                              <div><span className={`badge ${t.status.replace(/\s+/g,'-')}`}>{t.status}</span></div>
+                            </div>
+                            <div className="meta">{t.status} — {new Date(t.createdAt).toLocaleString()}</div>
+                            <div className="desc">{t.description}</div>
+                            <div className="controls" style={{marginTop:8}}>
+                              <button className="icon-btn primary" onClick={()=>updateStatus(t.id,'in-progress')}>In Progress</button>
+                              <button className="icon-btn" onClick={()=>updateStatus(t.id,'resolved')}>Resolve</button>
+                            </div>
+                          </div>
                     ))}
                   </div>
                 </div>

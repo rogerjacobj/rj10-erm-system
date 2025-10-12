@@ -6,6 +6,7 @@ import './dashboard.css'
 const EmployeeDashboard = () => {
   const [data, setData] = useState(null)
   const [tickets, setTickets] = useState([])
+  const [filter, setFilter] = useState('all')
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
 
@@ -50,8 +51,9 @@ const EmployeeDashboard = () => {
         const d = await res.json().catch(()=>({}));
         throw new Error(d.message || `Status ${res.status}`)
       }
-      const json = await res.json()
-      setTickets((t) => [json.ticket, ...t])
+  const json = await res.json()
+  // add a transient flag for a tiny highlight animation
+  setTickets((t) => [{ ...json.ticket, _transient: 'new' }, ...t])
       setTitle('')
       setCategory('general')
       setDescription('')
@@ -118,12 +120,28 @@ const EmployeeDashboard = () => {
 
             <div style={{ marginTop: 12 }} className="card">
               <h3>Your complaint tickets</h3>
-              <div className="ticket-list">
-                {tickets.length === 0 && <div className="small">No tickets yet</div>}
-                {tickets.map(t => (
-                  <div key={t.id} className="ticket">
-                    <div className="title">{t.title} <span className="small">({t.category})</span></div>
-                    <div className="meta">{t.status} — {new Date(t.createdAt).toLocaleString()}</div>
+              <div className="small">Filter and track status of your tickets</div>
+              <div style={{ marginTop: 8 }} className="filters">
+                <label className="small">Show:</label>
+                <select value={filter} onChange={(e)=>setFilter(e.target.value)}>
+                  <option value="all">All</option>
+                  <option value="open">Open</option>
+                  <option value="in-progress">In Progress</option>
+                  <option value="resolved">Resolved</option>
+                </select>
+              </div>
+
+              <div className="ticket-list" style={{ marginTop: 10 }}>
+                {tickets.filter(t => filter === 'all' ? true : t.status === filter).length === 0 && <div className="small">No tickets</div>}
+                {tickets.filter(t => filter === 'all' ? true : t.status === filter).map(t => (
+                  <div key={t.id} className={`ticket ${t._transient === 'new' ? 'new' : ''}`}>
+                    <div style={{display:'flex',justifyContent:'space-between',alignItems:'center'}}>
+                      <div className="title">{t.title} <span className="small">({t.category})</span></div>
+                      <div>
+                        <span className={`badge ${t.status.replace(/\s+/g,'-')}`}>{t.status}</span>
+                      </div>
+                    </div>
+                    <div className="meta">{new Date(t.createdAt).toLocaleString()}</div>
                     <div className="desc">{t.description}</div>
                   </div>
                 ))}
