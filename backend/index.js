@@ -22,8 +22,8 @@ app.post('/api/login', (req, res) => {
     }
 
     // NOTE: This is a mock. Replace with real auth logic.
-    if (password !== 'roger123') {
-        return res.status(401).json({ message: 'Invalid credentials. For local tests use password: roger123' })
+    if (password !== 'password123') {
+        return res.status(401).json({ message: 'Invalid credentials. For local tests use password: password123' })
     }
 
     // Issue a simple token that includes role (not secure, just for local dev)
@@ -91,6 +91,82 @@ app.get('/api/hr-data', ensureAuth, (req, res) => {
 
 const fs = require('fs')
 const path = require('path')
+
+// Simple file persistence for employees
+const EMPLOYEES_FILE = path.join(__dirname, 'employees.json')
+function loadEmployees() {
+    try {
+        const raw = fs.readFileSync(EMPLOYEES_FILE, 'utf8')
+        return JSON.parse(raw)
+    } catch (err) {
+        return []
+    }
+}
+
+function saveEmployees(employees) {
+    try {
+        fs.writeFileSync(EMPLOYEES_FILE, JSON.stringify(employees, null, 2), 'utf8')
+    } catch (err) {
+        console.error('Failed to save employees', err)
+    }
+}
+
+// In-memory employee storage
+const employeesStore = loadEmployees()
+
+// List all employees (HR only)
+app.get('/api/employees', ensureAuth, (req, res) => {
+    const { role } = req.user || {}
+    if (role !== 'hr') return res.status(403).json({ message: 'Only HR can access employee list' })
+    return res.json({ employees: employeesStore })
+})
+
+// Add new employee (HR only)
+app.post('/api/employees', ensureAuth, (req, res) => {
+    const { role } = req.user || {}
+    if (role !== 'hr') return res.status(403).json({ message: 'Only HR can add employees' })
+
+    const { email, name, department, employeeRole } = req.body || {}
+    if (!email || !name || !employeeRole) {
+        return res.status(400).json({ message: 'email, name, and employeeRole are required' })
+    }
+
+    // Check if email already exists
+    if (employeesStore.find(e => e.email === email)) {
+        return res.status(409).json({ message: 'Employee with this email already exists' })
+    }
+
+    const employee = {
+        id: `emp-${Date.now()}`,
+        email,
+        name,
+        role: employeeRole,
+        department: department || 'General',
+        createdAt: new Date().toISOString(),
+        status: 'active'
+    }
+
+    employeesStore.push(employee)
+    saveEmployees(employeesStore)
+
+    return res.status(201).json({ employee })
+})
+
+// Remove employee (HR only)
+app.delete('/api/employees/:id', ensureAuth, (req, res) => {
+    const { role } = req.user || {}
+    if (role !== 'hr') return res.status(403).json({ message: 'Only HR can remove employees' })
+
+    const { id } = req.params
+    const index = employeesStore.findIndex(e => e.id === id)
+    
+    if (index === -1) return res.status(404).json({ message: 'Employee not found' })
+
+    const [removed] = employeesStore.splice(index, 1)
+    saveEmployees(employeesStore)
+
+    return res.json({ employee: removed })
+})
 
 // Simple file persistence for tickets
 const TICKETS_FILE = path.join(__dirname, 'tickets.json')

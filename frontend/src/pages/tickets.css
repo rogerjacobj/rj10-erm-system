@@ -5,6 +5,7 @@
 .ticket h4 { margin: 0 0 6px 0; font-weight:700; color:#0f172a }
 .ticket-meta { font-size: 12px; color: var(--muted) }
 .ticket-controls { margin-top: 10px }
+.ticket-controls { display:flex; gap:10px; align-items:center }
 .ticket-controls button { margin-right: 8px; padding:6px 10px; border-radius:8px; border:1px solid rgba(15,23,42,0.04); background:transparent; cursor:pointer }
 .ticket-controls button.primary { background:linear-gradient(90deg,var(--accent),var(--accent-2)); color:#fff; border:0 }
 
@@ -30,3 +31,70 @@
 .ticket.updated{animation: flash-update 1.4s ease}
 @keyframes flash{0%{box-shadow:0 0 0 rgba(109,40,217,0.18)}10%{box-shadow:0 8px 26px rgba(109,40,217,0.22)}100%{box-shadow:0 10px 30px rgba(109,40,217,0.08)}}
 @keyframes flash-update{0%{box-shadow:0 0 0 rgba(6,182,212,0.18)}10%{box-shadow:0 8px 26px rgba(6,182,212,0.22)}100%{box-shadow:0 10px 30px rgba(6,182,212,0.08)}}
+
+/* Employee management styles */
+.employee-form {
+  margin-top: 12px;
+}
+
+.employee-form .form-row {
+  margin-bottom: 12px;
+}
+
+.employee-form input,
+.employee-form select {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid rgba(15,23,42,0.06);
+  border-radius: 8px;
+}
+
+.employee-list {
+  margin-top: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.employee-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px;
+  background: linear-gradient(180deg,#fff,#fbfbff);
+  border: 1px solid rgba(109,40,217,0.06);
+  border-radius: 8px;
+  transition: transform .16s ease, box-shadow .16s ease;
+}
+
+.employee-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(16,24,40,0.06);
+}
+
+.employee-card.new {
+  animation: flash 1.6s ease;
+}
+
+.employee-info {
+  flex: 1;
+}
+
+.employee-info .name {
+  font-weight: 600;
+  color: #0f172a;
+}
+
+.employee-info .meta {
+  margin-top: 4px;
+}
+
+.icon-btn.danger {
+  background: transparent;
+  color: #ef4444;
+  border: 1px solid rgba(239,68,68,0.2);
+}
+
+.icon-btn.danger:hover {
+  background: rgba(239,68,68,0.08);
+}

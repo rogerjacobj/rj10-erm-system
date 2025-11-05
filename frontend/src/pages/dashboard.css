@@ -30,7 +30,7 @@
 .ticket .meta{font-size:12px;color:var(--muted)}
 .ticket .title{font-weight:700;color:#0f172a}
 .ticket .desc{margin-top:8px;color:#334155}
-.ticket .controls{margin-top:8px}
+.ticket .controls{margin-top:8px;display:flex;gap:10px;align-items:center}
 .ticket .controls button{padding:7px 12px;border-radius:8px;border:0;background:linear-gradient(90deg,var(--accent),var(--accent-2));color:#fff;cursor:pointer}
 .ticket .controls button.secondary{background:transparent;border:1px solid rgba(15,23,42,0.06);color:var(--muted)}
 
